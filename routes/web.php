@@ -5,27 +5,31 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminChatController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
-
-/*
-|--------------------------------------------------------------------------
-| WEB ROUTES
-|--------------------------------------------------------------------------
-*/
+use App\Http\Controllers\Admin\OrderController;
 
 // =======================
 // A. PUBLIK
 // =======================
 Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+    return redirect()->route('admin.dashboard');
+});
+Route::middleware('guest')->group(function () {
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginController::class, 'login'])->name('admin.login.post');
+
+    // Admin registration (guest only)
+    Route::get('register', [\App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('register', [\App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register.post');
+});
+
 
 // =======================
 // B. AUTH
 // =======================
-Route::middleware('guest')->group(function () {
-    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [LoginController::class, 'login']);
-});
+// Route::middleware('guest')->group(function () {
+//     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+//     Route::post('login', [LoginController::class, 'login']);
+// });
 
 Route::post('logout', [LoginController::class, 'logout'])
     ->name('admin.logout')
@@ -55,10 +59,21 @@ Route::prefix('admin')
         // =======================
         // MANAJEMEN PRODUK
         // =======================
-        Route::prefix('manajemenProduk')->name('manajemenProduk.')->group(function () {
+            Route::prefix('manajemenProduk')->name('manajemenProduk.')->group(function () {
             Route::get('/', [ProductController::class, 'index'])->name('index');
-            // Toggle Status Aktif/Tampil (is_visible)
-            Route::post('toggle/{kodeBarang}', [ProductController::class, 'toggleVisibility'])->name('toggleVisibility');
+            
+            // Route Toggle - Menggunakan POST agar sesuai dengan tag <form>
+            Route::post('/toggle/{kode_barang}', [ProductController::class, 'toggleVisibility'])
+                ->name('toggleVisibility');
+
         });
 
+        // =======================
+        // KELOLA PESANAN
+        // =======================
+        Route::prefix('orders')->name('orders.')->group(function () {
+            Route::get('/', [OrderController::class, 'index'])->name('index');
+            Route::post('/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('updateStatus');
+            Route::post('/{orderId}/approve-cancel', [OrderController::class, 'approveCancel'])->name('approveCancel');
+        });
     }); // Pastikan kurung ini menutup group prefix 'admin'

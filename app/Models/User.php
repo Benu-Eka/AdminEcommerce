@@ -26,11 +26,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
-        'nama_lengkap',
-        'email',
-        'password',
-        'role',    // Kolom tambahan dari SQL (penting untuk admin check)
+    'user_id',
+    'nama_lengkap',
+    'username', // Pastikan kolom ini ada
+    'email',
+    'password',
+    'role',
     ];
 
     /**

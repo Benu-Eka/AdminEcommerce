@@ -41,13 +41,13 @@
 >
 
     {{-- Logo / Branding --}}
-    <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="w-36 mx-auto mb-6">
+    <img src="{{ asset('assets/images/Logo_fanjaya_1.png') }}" alt="Logo Fanjaya" class="w-36 mx-auto mb-6 object-contain">
 
     {{-- Dashboard - Link Utama --}}
-    <a href="/dashboard"
+    <a href="{{ route('admin.dashboard') }}"
         class="text-sm font-semibold flex items-center gap-3 w-full p-2.5 rounded-xl transition-all duration-200 
                hover:bg-red-800/70 hover:shadow-lg hover:shadow-red-950/80
-               {{ request()->is('dashboard') ? $activeLinkClasses : $defaultLinkClasses }}">
+               {{ request()->routeIs('admin.dashboard') ? $activeLinkClasses : $defaultLinkClasses }}">
         <i class="fa-regular fa-chart-bar text-xl w-6"></i>
         <span>Dashboard</span>
     </a>
@@ -63,16 +63,16 @@
         
         <a href="/admin/chat" 
             class="flex items-center gap-3 text-sm font-medium w-full p-2.5 rounded-xl hover:bg-red-800/70 transition-all duration-200
-            {{ request()->is('users-roles*') ? $activeLinkClasses : $defaultLinkClasses }}">
+            {{ request()->is('admin/chat*') ? $activeLinkClasses : $defaultLinkClasses }}">
             <i class="fa-solid fa-users-gear text-xl w-6"></i>
             <span>Chat Pelanggan</span>
         </a>
-        
-        <a href="#" 
+
+        <a href="{{ route('admin.orders.index') }}" 
             class="flex items-center gap-3 text-sm font-medium w-full p-2.5 rounded-xl hover:bg-red-800/70 transition-all duration-200
-            {{ request()->is('users-roles*') ? $activeLinkClasses : $defaultLinkClasses }}">
-            <i class="fa-solid fa-users-gear text-xl w-6"></i>
-            <span>Users & Roles</span>
+            {{ request()->is('admin/orders*') ? $activeLinkClasses : $defaultLinkClasses }}">
+            <i class="fa-solid fa-truck-fast text-xl w-6"></i>
+            <span>Kelola Pesanan</span>
         </a>
-    </nav>
+            </nav>
 </div>
