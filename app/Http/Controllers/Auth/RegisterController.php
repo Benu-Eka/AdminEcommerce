@@ -32,11 +32,12 @@ class RegisterController extends Controller
 
             $user = User::create([
                 'user_id' => $newUserId,
+                'name' => $request->nama_lengkap, // Kolom 'name' wajib diisi (NOT NULL)
                 'nama_lengkap' => $request->nama_lengkap,
                 'username' => $request->username, // Wajib diisi sesuai DB
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => 'Admin', // Gunakan 'Admin' (Capital Case) sesuai ENUM di SQL
+                'role' => 'admin', // Lowercase agar konsisten dengan login check
             ]);
 
             Auth::login($user);

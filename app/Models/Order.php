@@ -21,6 +21,8 @@ class Order extends Model
         'total',
         'midtrans_order_id',
         'telepon',
+        'cancel_requested',
+        'midtrans_response',
     ];
 
     public function pelanggan()

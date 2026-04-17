@@ -74,5 +74,12 @@
             <i class="fa-solid fa-truck-fast text-xl w-6"></i>
             <span>Kelola Pesanan</span>
         </a>
+
+        <a href="{{ route('admin.change-password') }}" 
+            class="flex items-center gap-3 text-sm font-medium w-full p-2.5 rounded-xl hover:bg-red-800/70 transition-all duration-200
+            {{ request()->is('admin/change-password*') ? $activeLinkClasses : $defaultLinkClasses }}">
+            <i class="fa-solid fa-key text-xl w-6"></i>
+            <span>Ganti Password</span>
+        </a>
             </nav>
 </div>

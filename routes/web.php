@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminChatController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ChangePasswordController;
 
 // =======================
 // A. PUBLIK
@@ -76,4 +77,10 @@ Route::prefix('admin')
             Route::post('/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('updateStatus');
             Route::post('/{orderId}/approve-cancel', [OrderController::class, 'approveCancel'])->name('approveCancel');
         });
+
+        // =======================
+        // GANTI PASSWORD
+        // =======================
+        Route::get('change-password', [ChangePasswordController::class, 'showForm'])->name('change-password');
+        Route::post('change-password', [ChangePasswordController::class, 'update'])->name('change-password.update');
     }); // Pastikan kurung ini menutup group prefix 'admin'
