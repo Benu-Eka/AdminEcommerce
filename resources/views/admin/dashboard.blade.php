@@ -93,9 +93,9 @@
                             @php
                                 $imgSrc = 'https://via.placeholder.com/50';
                                 if ($p->foto_produk) {
-                                    $imgSrc = Str::startsWith($p->foto_produk, ['http', 'https', 'data:', '/storage', 'build'])
+                                    $imgSrc = Str::startsWith($p->foto_produk, ['http', 'https', 'data:'])
                                         ? $p->foto_produk
-                                        : asset('build/assets/' . $p->foto_produk);
+                                        : asset('images/foto_produk/' . basename($p->foto_produk));
                                 }
                             @endphp
                             <img src="{{ $imgSrc }}" alt="produk" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/50x50?text=No+Img';">
